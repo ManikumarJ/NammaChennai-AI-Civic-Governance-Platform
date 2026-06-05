@@ -8,7 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { User, Mail, Phone, Lock, UserPlus, MapPin, Grid, Layers, Milestone } from 'lucide-react';
 
 const CHENNAI_AREAS = [
-  { area: 'KK Nagar', ward: 121, zone: 10, constituency: 'Virugambakkam' },
+  { area: 'KK Nagar', ward: 138, zone: 10, constituency: 'Virugambakkam' },
   { area: 'T. Nagar', ward: 130, zone: 10, constituency: 'T. Nagar' },
   { area: 'Mylapore', ward: 125, zone: 9, constituency: 'Mylapore' },
   { area: 'Adyar', ward: 175, zone: 13, constituency: 'Velachery' },
