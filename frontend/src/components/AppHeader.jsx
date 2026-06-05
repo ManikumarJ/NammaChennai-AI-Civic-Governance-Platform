@@ -59,13 +59,13 @@ const AppHeader = ({ notifications: propNotifications, setNotifications }) => {
           {/* Brand Logo & Gov Emblem */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-3">
-              <img src={logo} alt="Namma Chennai Logo" className="h-12 md:h-16 w-auto object-contain" />
+              <img src={logo} alt="Namma Chennai Logo" className="h-14 md:h-18 w-auto object-contain" />
               <div className="flex flex-col">
-                <span className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r from-govGreen-dark to-govBlue-dark bg-clip-text text-transparent uppercase">
+                <span className="text-xl md:text-2xl font-black tracking-tight bg-gradient-to-r from-govGreen to-govBlue bg-clip-text text-transparent uppercase">
                   Namma Chennai
                 </span>
-                <span className="text-[8px] md:text-[9px] font-extrabold uppercase tracking-widest text-slate-450 -mt-0.5">
-                  Civic Governance Engine
+                <span className="text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest text-slate-400 -mt-0.5">
+                  Civic Grievance & AI Governance Engine
                 </span>
               </div>
             </Link>
