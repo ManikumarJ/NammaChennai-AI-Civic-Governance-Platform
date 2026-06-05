@@ -142,7 +142,7 @@ const CommissionerDashboard = () => {
               </div>
 
               {/* Statistics Grid */}
-              <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-100">
                 <div className="bg-white border border-slate-150 p-2.5 rounded-xl text-center">
                   <span className="text-sm text-slate-450 block font-bold uppercase">Total</span>
                   <span className="text-base font-extrabold text-slate-800 block mt-0.5">{searchResult.totalComplaints}</span>
