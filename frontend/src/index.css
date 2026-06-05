@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-govGreen-light: #E8F5E9;
+  --color-govGreen: #2E7D32;
+  --color-govGreen-dark: #1B5E20;
+  
+  --color-govBlue-light: #E3F2FD;
+  --color-govBlue: #0D47A1;
+  --color-govBlue-dark: #0A2540;
+  
+  --color-lightBg: #F4F6F8;
+  
+  --font-sans: 'Inter', 'Outfit', 'sans-serif';
+
+  /* Standardized font sizes matching requirements */
+  --text-xs: 0.875rem;  /* 14px - Labels */
+  --text-sm: 0.875rem;  /* 14px - Labels */
+  --text-base: 1rem;    /* 16px - Body Text */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.25rem;   /* 20px - Headings */
+  --text-2xl: 1.5rem;   /* 24px - Headings */
+  --text-3xl: 1.875rem; /* 30px - Dashboard numbers */
+  --text-4xl: 2.25rem;  /* 36px - Dashboard numbers */
+}
+
+
+body {
+  @apply bg-lightBg text-slate-800 font-sans antialiased text-base;
+  margin: 0;
+}
+
+/* Custom premium styles */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.glow-card {
+  box-shadow: 0 4px 20px -2px rgba(13, 71, 161, 0.05), 0 2px 10px -1px rgba(46, 125, 50, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(13, 71, 161, 0.1), 0 8px 16px -4px rgba(46, 125, 50, 0.06);
+}
+
+/* Tamil Nadu Government Green Gradient Button */
+.btn-green-grad {
+  background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+  transition: all 0.2s ease-in-out;
+}
+.btn-green-grad:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+}
+
+/* Dark Blue Government Gradient Button */
+.btn-blue-grad {
+  background: linear-gradient(135deg, #0D47A1 0%, #0A2540 100%);
+  transition: all 0.2s ease-in-out;
+}
+.btn-blue-grad:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
+}
+
+/* Timeline Custom Styles */
+.timeline-line {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #E2E8F0;
+}
+
+/* Custom Scrollbar for dashboards */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F1F1;
+}
+::-webkit-scrollbar-thumb {
+  background: #C1C1C1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A8A8A8;
+}
