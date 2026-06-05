@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
@@ -23,7 +24,7 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+      const res = await axios.post(`${API_BASE_URL}/api/auth/forgot-password`, { email });
       setMessage(res.data.message + ' Note: Since SMTP is mocked, the reset link is printed to the Node.js backend console.');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to request reset. Make sure the email is registered.');

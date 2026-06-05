@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
@@ -26,7 +27,7 @@ const CommissionerDashboard = () => {
     setSearchError('');
     try {
       const token = localStorage.getItem('nc_token');
-      const res = await axios.get(`http://localhost:5000/api/analytics/commissioner?query=${query}`, {
+      const res = await axios.get(`${API_BASE_URL}/api/analytics/commissioner?query=${query}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSearchResult(res.data);
@@ -40,7 +41,7 @@ const CommissionerDashboard = () => {
 
   const fetchScorecards = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/analytics/scorecards');
+      const res = await axios.get(`${API_BASE_URL}/api/analytics/scorecards`);
       setScorecards(res.data);
     } catch (err) {
       setScorecardsError('Failed to retrieve public scorecards.');

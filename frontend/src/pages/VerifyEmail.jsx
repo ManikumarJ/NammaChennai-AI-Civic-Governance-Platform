@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -22,7 +23,7 @@ const VerifyEmail = () => {
       }
 
       try {
-        const res = await axios.get(`http://localhost:5000/api/auth/verify-email/${token}`);
+        const res = await axios.get(`${API_BASE_URL}/api/auth/verify-email/${token}`);
         setStatus('success');
         setMessage(res.data.message);
         dispatch(updateVerification());

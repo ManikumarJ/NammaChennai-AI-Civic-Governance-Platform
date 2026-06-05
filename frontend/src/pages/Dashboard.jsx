@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,7 @@ const Dashboard = () => {
 
     const fetchGrievances = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/complaints', {
+        const res = await axios.get(`${API_BASE_URL}/api/complaints`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setComplaints(res.data);

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
@@ -16,7 +17,7 @@ const ZonalDashboard = ({ complaints, onSelectComplaint }) => {
     const fetchZonalDashboard = async () => {
       try {
         const token = localStorage.getItem('nc_token');
-        const res = await axios.get('http://localhost:5000/api/analytics/zonal', {
+        const res = await axios.get(`${API_BASE_URL}/api/analytics/zonal`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setData(res.data);

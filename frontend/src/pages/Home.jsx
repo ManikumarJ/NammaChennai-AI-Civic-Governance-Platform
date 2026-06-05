@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
@@ -21,7 +22,7 @@ const Home = () => {
   const fetchPublicData = async () => {
     try {
       // Fetch public scorecards to compute aggregate city metrics
-      const scorecardsRes = await axios.get('http://localhost:5000/api/analytics/scorecards');
+      const scorecardsRes = await axios.get(`${API_BASE_URL}/api/analytics/scorecards`);
       let total = 0;
       let pending = 0;
       let resolved = 0;
@@ -45,7 +46,7 @@ const Home = () => {
       // Let's verify: Yes! Let's double check if we can make a change to `authMiddleware.js` to support optional authentication. Yes, that is incredibly smart and robust. Let's write `Home.jsx` first, then we can adjust the middleware to support guest reads.
       const token = localStorage.getItem('nc_token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const complaintsRes = await axios.get('http://localhost:5000/api/complaints', { headers });
+      const complaintsRes = await axios.get(`${API_BASE_URL}/api/complaints`, { headers });
       setComplaints(complaintsRes.data);
     } catch (err) {
       console.error('Failed to load public data:', err);

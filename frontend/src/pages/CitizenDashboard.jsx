@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
@@ -46,7 +47,7 @@ const CitizenDashboard = ({ onSelectComplaint }) => {
   const fetchCitizenDashboard = async () => {
     try {
       const token = localStorage.getItem('nc_token');
-      const res = await axios.get('http://localhost:5000/api/analytics/citizen', {
+      const res = await axios.get(`${API_BASE_URL}/api/analytics/citizen`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setData(res.data);
@@ -86,7 +87,7 @@ const CitizenDashboard = ({ onSelectComplaint }) => {
     setSubmitting(true);
     try {
       const token = localStorage.getItem('nc_token');
-      await axios.post('http://localhost:5000/api/complaints', {
+      await axios.post(`${API_BASE_URL}/api/complaints`, {
         title,
         description,
         category,

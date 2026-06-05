@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
@@ -16,7 +17,7 @@ const CouncillorDashboard = ({ complaints, onSelectComplaint }) => {
     const fetchCouncillorDashboard = async () => {
       try {
         const token = localStorage.getItem('nc_token');
-        const res = await axios.get('http://localhost:5000/api/analytics/councillor', {
+        const res = await axios.get(`${API_BASE_URL}/api/analytics/councillor`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setData(res.data);

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -47,7 +48,7 @@ const ComplaintDetail = () => {
   const fetchComplaintDetails = async () => {
     try {
       const token = localStorage.getItem('nc_token');
-      const res = await axios.get(`http://localhost:5000/api/complaints/${id}`, {
+      const res = await axios.get(`${API_BASE_URL}/api/complaints/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setComplaint(res.data.complaint);
@@ -75,7 +76,7 @@ const ComplaintDetail = () => {
     setPostingComment(true);
     try {
       const token = localStorage.getItem('nc_token');
-      const res = await axios.post(`http://localhost:5000/api/complaints/${id}/comments`, {
+      const res = await axios.post(`${API_BASE_URL}/api/complaints/${id}/comments`, {
         text: commentText
       }, {
         headers: { Authorization: `Bearer ${token}` }
@@ -94,7 +95,7 @@ const ComplaintDetail = () => {
     setUpdatingStatus(true);
     try {
       const token = localStorage.getItem('nc_token');
-      const res = await axios.patch(`http://localhost:5000/api/complaints/${id}/status`, {
+      const res = await axios.patch(`${API_BASE_URL}/api/complaints/${id}/status`, {
         status: statusInput,
         note: statusNote,
         image: statusImage || undefined

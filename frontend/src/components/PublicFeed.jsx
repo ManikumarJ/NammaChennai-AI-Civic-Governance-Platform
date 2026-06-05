@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useState } from 'react';
 import { Users, AlertCircle, MapPin, Calendar, ArrowRight, CheckCircle2, RefreshCw } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -41,7 +42,7 @@ const PublicFeed = ({ complaints, setComplaints, onSelectComplaint }) => {
     setVotingId(id);
     try {
       const token = localStorage.getItem('nc_token');
-      const res = await axios.post(`http://localhost:5000/api/complaints/${id}/affected`, {}, {
+      const res = await axios.post(`${API_BASE_URL}/api/complaints/${id}/affected`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
