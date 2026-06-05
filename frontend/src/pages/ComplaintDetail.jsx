@@ -9,6 +9,7 @@ import {
   MessageSquare, FileText, Send, CheckCircle2, ChevronRight,
   Upload, Link as LinkIcon, X
 } from 'lucide-react';
+import { compressImage } from '../utils/imageCompressor';
 
 const ComplaintDetail = () => {
   const { id } = useParams();
@@ -38,8 +39,9 @@ const ComplaintDetail = () => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setStatusImage(reader.result);
+      reader.onloadend = async () => {
+        const compressed = await compressImage(reader.result);
+        setStatusImage(compressed);
       };
       reader.readAsDataURL(file);
     }

@@ -8,6 +8,7 @@ import {
   FileText, Clock, CheckCircle2, ChevronRight, 
   MapPin, Plus, X, Globe, EyeOff, Navigation, Layers, Upload, Link as LinkIcon 
 } from 'lucide-react';
+import { compressImage } from '../utils/imageCompressor';
 
 const COLORS = ['#0D47A1', '#2E7D32', '#ED6C02', '#9C27B0', '#00BCD4', '#FFEB3B', '#F44336'];
 
@@ -37,8 +38,9 @@ const CitizenDashboard = ({ onSelectComplaint }) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result);
+      reader.onloadend = async () => {
+        const compressed = await compressImage(reader.result);
+        setImageUrl(compressed);
       };
       reader.readAsDataURL(file);
     }
