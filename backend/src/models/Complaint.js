@@ -118,6 +118,9 @@ const complaintSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+complaintSchema.index({ citizen: 1 });
+complaintSchema.index({ status: 1 });
+
 // Auto-generate Complaint ID on save (NC-YYYY-100XX)
 complaintSchema.pre('save', async function(next) {
   if (!this.complaintId) {

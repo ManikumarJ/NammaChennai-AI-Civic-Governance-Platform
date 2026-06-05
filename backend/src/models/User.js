@@ -63,6 +63,9 @@ const userSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+userSchema.index({ ward: 1 });
+userSchema.index({ role: 1, ward: 1 });
+
 // Pre-save middleware to hash passwords
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();

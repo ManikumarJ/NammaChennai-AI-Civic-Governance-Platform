@@ -359,14 +359,20 @@ exports.getCommissionerSearch = async (req, res) => {
 // Public scorecard list for all wards
 exports.getPublicScorecards = async (req, res) => {
   try {
-    const citizens = await User.find({ role: 'Citizen' });
+    const complaints = await Complaint.find({}).populate('citizen', 'ward area');
     
-    // Group citizens by ward to list all unique wards
+    // Group complaints by ward
     const wardMap = {};
-    citizens.forEach(c => {
-      if (c.ward) {
-        if (!wardMap[c.ward]) wardMap[c.ward] = { area: c.area, citizens: [] };
-        wardMap[c.ward].citizens.push(c._id);
+    complaints.forEach(c => {
+      if (c.citizen && c.citizen.ward) {
+        const w = c.citizen.ward;
+        if (!wardMap[w]) {
+          wardMap[w] = {
+            area: c.citizen.area,
+            complaintsList: []
+          };
+        }
+        wardMap[w].complaintsList.push(c);
       }
     });
 
@@ -374,13 +380,11 @@ exports.getPublicScorecards = async (req, res) => {
 
     for (const w of Object.keys(wardMap)) {
       const wardNum = parseInt(w);
-      const userIds = wardMap[w].citizens;
-      const complaints = await Complaint.find({ citizen: { $in: userIds } });
-
-      const stats = computeBasicStats(complaints);
+      const wComplaints = wardMap[w].complaintsList;
+      const stats = computeBasicStats(wComplaints);
       
       // Calculate Citizen Satisfaction (mock metrics based on resolution times & comment sentiments)
-      const satisfScore = complaints.length > 0 ? Math.min(100, Math.max(40, Math.round(parseFloat(stats.resolutionRate) * 1.1 - (stats.pending / complaints.length) * 10))).toString() : '80';
+      const satisfScore = wComplaints.length > 0 ? Math.min(100, Math.max(40, Math.round(parseFloat(stats.resolutionRate) * 1.1 - (stats.pending / wComplaints.length) * 10))).toString() : '80';
       const transparencyScore = '95'; // All complaints are public in Namma Chennai!
 
       scorecards.push({

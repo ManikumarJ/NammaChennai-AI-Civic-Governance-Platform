@@ -21,33 +21,19 @@ const Home = () => {
 
   const fetchPublicData = async () => {
     try {
-      // Fetch public scorecards to compute aggregate city metrics
-      const scorecardsRes = await axios.get(`${API_BASE_URL}/api/analytics/scorecards`);
-      let total = 0;
-      let pending = 0;
-      let resolved = 0;
-      scorecardsRes.data.forEach(s => {
-        total += s.totalComplaints;
-        pending += s.pendingComplaints;
-        resolved += s.resolvedComplaints;
-      });
-      setScorecardStats({ total, pending, resolved });
-
       // Fetch public complaint feeds.
-      // We send request with a guest flag/token if available, or call public get (it populates names as anonymous/sanitized)
-      // Since it requires a protect middleware, wait: let's make sure `/api/complaints` and detail view works for guests or bypass JWT for read if needed, or use a guest login / token.
-      // Ah! In `server.js` we mapped:
-      // `app.get('/api/complaints', protect, complaintController.getComplaints);`
-      // Let's modify it so that `getComplaints` and `getComplaintById` check auth OPTIONALLY or we can bypass auth for reads. Bypassing auth for reads is excellent for transparency! But wait, in the middleware we wrote:
-      // `app.get('/api/complaints', protect, complaintController.getComplaints);`
-      // Wait! Let's check how we handle token. If the user is a guest (not logged in), they won't have a token.
-      // To solve this cleanly and robustly without breaking JWT verification, we can write a guest fallback in backend (e.g. if authorization header is missing, we still allow read only! Or we can login the guest automatically, or we can make `protect` optional for GET endpoints).
-      // Making `protect` optional for GET `/api/complaints` and `/api/complaints/:id` is the most elegant solution. Let's make a mental note to adjust this in `authMiddleware.js` or in `server.js`, or we can pass a mock token, or simply modify `authMiddleware` to let requests pass if they are GET and token is not present (attaching `req.user = null`).
-      // Let's verify: Yes! Let's double check if we can make a change to `authMiddleware.js` to support optional authentication. Yes, that is incredibly smart and robust. Let's write `Home.jsx` first, then we can adjust the middleware to support guest reads.
       const token = localStorage.getItem('nc_token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const complaintsRes = await axios.get(`${API_BASE_URL}/api/complaints`, { headers });
-      setComplaints(complaintsRes.data);
+      const complaintsList = complaintsRes.data;
+      setComplaints(complaintsList);
+
+      // Compute aggregate city-wide metrics directly from complaints
+      let total = complaintsList.length;
+      let pending = complaintsList.filter(c => ['Submitted', 'Assigned', 'In Progress', 'Escalated'].includes(c.status)).length;
+      let resolved = complaintsList.filter(c => ['Resolved', 'Closed'].includes(c.status)).length;
+      
+      setScorecardStats({ total, pending, resolved });
     } catch (err) {
       console.error('Failed to load public data:', err);
     } finally {
